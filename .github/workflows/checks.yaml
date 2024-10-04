@@ -1,0 +1,44 @@
+name: Rust checks
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install rust-toolchain.toml toolchain
+      run: rustup show
+
+    - uses: Swatinem/rust-cache@v2
+
+    - name: Run tests
+      run: cargo test --workspace
+
+  check:
+    name: Clippy
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install rust-toolchain.toml toolchain
+      run: rustup show
+
+    - uses: Swatinem/rust-cache@v2
+
+    - name: cargo fmt -- --check
+      run: cargo fmt -- --check
+
+    - name: cargo clippy -- -D clippy::pedantic -D clippy::nursery -D warnings
+      run: cargo clippy -- -D clippy::pedantic -D clippy::nursery -D warnings

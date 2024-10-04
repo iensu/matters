@@ -1,0 +1,7 @@
+/target
+/dist
+.direnv
+.envrc
+result
+
+*.pdf

@@ -1,0 +1,9 @@
+[package]
+name = "matters_pdf"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+matters_lib = { path = "../lib" }
+
+printpdf = "0.7.0"

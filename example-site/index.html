@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Matte.rs</title>
+    </head>
+    <body>
+        <ol id="problems">
+            
+        </ol>
+    </body>
+    <script type="module">
+     const OPERATIONS = ['+', '-', '*', '/']
+     
+     const createInstance = async (path, importObject = {}) => {         
+         const { instance } = await WebAssembly.instantiateStreaming(fetch(path), importObject);
+         
+         return instance;
+     };
+
+     const generateMathProblems = () => {
+         const memory = MattersInstance.exports.memory;
+         const numProblems = 60;
+         const pointer = MattersInstance.exports.generate_problems(
+             numProblems,
+             20,
+             10,
+             7,
+             0
+         );
+
+         const buffer = memory.buffer;
+         const view = new Uint32Array(memory.buffer, pointer, numProblems * 3);
+
+         const results = [];
+         let iteration = 0;
+         while ((iteration * 3) < view.length) {
+             const index = iteration * 3;
+             const [op, x, y] = view.slice(index, index + 3);
+             results.push({ op: OPERATIONS[op], x, y })
+             iteration++
+         }
+
+         return results;
+     };
+
+     (async () => {
+         const instance = await createInstance("matters.wasm", {
+             logger: {
+                 info(x) {
+
+                 },
+                 error(code) {
+                     console.error('Error code:', code);
+                 }
+             },
+             random: {
+                 seed() {
+                     return BigInt(Math.round(Math.random() * Number.MAX_SAFE_INTEGER))
+                 }
+             }
+         });
+
+         window.MattersInstance = instance;
+
+         const problems = generateMathProblems();
+
+         const list = document.getElementById('problems');
+
+         for (const problem of problems) {
+             const problemString = `${problem.x} ${problem.op} ${problem.y} = _______`;
+             const element = document.createElement('li');
+             element.innerText = problemString;
+             list.appendChild(element);
+         }
+     })();
+    </script>    
+</html>

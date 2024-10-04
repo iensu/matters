@@ -1,0 +1,12 @@
+[workspace]
+resolver = "2"
+members = [
+  "cli"
+, "lib"
+, "pdf"
+, "wasm"
+]
+
+[workspace.dependencies]
+clap = { version = "4.5.19", features = ["derive"] }
+rand = { version = "0.8.5", default-features = false }

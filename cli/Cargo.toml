@@ -1,0 +1,17 @@
+[package]
+name = "matters"
+version = "0.1.0"
+edition = "2021"
+default-run = "matte"
+
+[[bin]]
+path = "src/main.rs"
+name = "matte"
+
+
+[dependencies]
+matters_lib = { path = "../lib", features = ["clap"] }
+matters_pdf = { path = "../pdf" }
+
+clap = { workspace = true }
+rand = { workspace = true, features = ["std", "std_rng"] }
