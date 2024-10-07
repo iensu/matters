@@ -1,0 +1,22 @@
+html {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+body {
+  padding: 64px;
+}
+
+ul {
+  list-style: none;
+  border: 3px solid black;
+  width: fit-content;
+  box-shadow: 12px 12px black;
+
+  padding: 16px;
+
+  li {
+    margin: 4px;
+  }
+}
