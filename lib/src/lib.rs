@@ -12,13 +12,13 @@ type Result<T> = std::result::Result<T, error::LibError>;
 #[cfg_attr(feature = "ffi", repr(u32))]
 pub enum Operation {
     #[cfg_attr(feature = "clap", clap(name = "+"))]
-    Addition,
+    Addition = 0b0001,
     #[cfg_attr(feature = "clap", clap(name = "-"))]
-    Subtraction,
+    Subtraction = 0b0010,
     #[cfg_attr(feature = "clap", clap(name = "*"))]
-    Multiplication,
+    Multiplication = 0b0100,
     #[cfg_attr(feature = "clap", clap(name = "/"))]
-    Division,
+    Division = 0b1000,
 }
 
 impl Display for Operation {

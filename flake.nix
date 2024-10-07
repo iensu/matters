@@ -49,16 +49,13 @@
 
         sitePackage = pkgs.stdenv.mkDerivation rec {
           name = "example-site";
-          src = ./.;
+          src = ./example-site;
           installPhase = ''
             mkdir -p $out
-            cp example-site/* $out/
+            cp $src/* $out/
             cp ${wasmPackage}/lib/* $out/
           '';
         };
-        siteServer = pkgs.writeScriptBin "serve" ''
-          ${pkgs.python3}/bin/python3 -m http.server --directory ${sitePackage}
-        '';
       in
         {
           packages.cli = cliPackage;
@@ -81,7 +78,9 @@
               wasmtime     # For running the wasm module through WASI (wasmtime --invoke <fn> file.wasm [...args])
               cargo-outdated
 
-              siteServer
+              nodejs_20
+              nodePackages.typescript-language-server
+              nodePackages.prettier
             ];
             RUST_SRC_PATH = rustPlatform.rustLibSrc;
           };
