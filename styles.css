@@ -8,15 +8,76 @@ body {
   padding: 64px;
 }
 
-ul {
-  list-style: none;
+#problems {
   border: 3px solid black;
   width: fit-content;
   box-shadow: 12px 12px black;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 
-  padding: 16px;
+#correct-button {
+  align-self: flex-end;
+  margin: 1ch;
+  border: 2px solid black;
+  background: white;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: 1.1rem;
+  padding: 8px 16px;
+  color: black;
+  cursor: pointer;
+  text-transform: uppercase;
+  box-shadow: black 2px 2px;
 
-  li {
-    margin: 4px;
+  &:hover {
+    background: black;
+    color: white;
+  }
+}
+
+.problem {
+  display: grid;
+  grid-template-columns: 1ch 3ch 3ch 3ch 1ch 1fr;
+  align-items: center;
+  gap: 1ch;
+  margin: 1ch 1ch;
+
+  label {
+    font-size: 0.7rem;
+    align-self: flex-end;
+    padding-bottom: 4px;
+    text-align: right;
+  }
+
+  .number {
+    text-align: right;
+  }
+  .operation {
+    text-align: center;
+  }
+
+  .answer-input {
+    display: block;
+    margin-left: 2ch;
+    width: 8ch;
+    border: none;
+    border-bottom: 2px solid black;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    text-align: center;
+
+    &.correct {
+      color: green;
+    }
+    &.incorrect {
+      color: red;
+    }
+  }
+  .answer-input:focus {
+    outline: none;
   }
 }
