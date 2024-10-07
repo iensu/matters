@@ -50,7 +50,7 @@ fn main() {
     let mut rng = rand::thread_rng();
     let problems = generate_problems(&args.into(), &mut rng).unwrap();
 
-    let bytes = matters_pdf::generate_pdf(&problems);
+    let bytes = matters_pdf::generate_pdf(&problems).expect("can create PDF document");
 
     let mut file = File::create(&filename).expect("can create file");
     file.write_all(&bytes).expect("can write data to file");

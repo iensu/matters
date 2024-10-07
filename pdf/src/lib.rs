@@ -8,11 +8,16 @@ const INDENT: f32 = 20.0;
 const LINE_HEIGHT: f32 = BREAD_TEXT_SIZE;
 const MAX_ROWS: usize = 60;
 
-pub fn generate_pdf(problems: &[Problem]) -> Vec<u8> {
+/// Generates a math problem PDF document.
+///
+/// # Errors
+///
+/// Returns error if unable to generate PDF document.
+pub fn generate_pdf(problems: &[Problem]) -> Result<Vec<u8>, std::io::Error> {
     let (doc, page1, layer1) = PdfDocument::new("Mattepappret", Mm(A4.0), Mm(A4.1), "Layer 1");
-    let font = doc
-        .add_builtin_font(BuiltinFont::Courier)
-        .expect("can add builtin font");
+    let font = doc.add_builtin_font(BuiltinFont::Courier).map_err(|_err| {
+        std::io::Error::new(std::io::ErrorKind::Other, "Failed to set builtin PDF font!")
+    })?;
     let current_layer = doc.get_page(page1).get_layer(layer1);
 
     let mut y = START_POSITION;
@@ -46,5 +51,10 @@ pub fn generate_pdf(problems: &[Problem]) -> Vec<u8> {
         );
     }
 
-    doc.save_to_bytes().expect("can turn PDF into bytes")
+    doc.save_to_bytes().map_err(|_err| {
+        std::io::Error::new(
+            std::io::ErrorKind::Other,
+            "Unable to turn PDF document into bytes!",
+        )
+    })
 }
