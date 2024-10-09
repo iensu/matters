@@ -11,7 +11,7 @@ const OPERATION_STRINGS = {
   [FLAG_DIV]: "/",
 };
 
-let NUM_PROBLEMS = 30;
+let NUM_PROBLEMS = 60;
 let MAX_RESULT = 20;
 let MAX_FACTOR = 10;
 let OPERATIONS = FLAG_ADD + FLAG_SUB + FLAG_MUL;
@@ -134,22 +134,19 @@ const onSubmit = (problems) => (event) => {
 
   const problems = generateMathProblems();
 
-  const form = document.getElementById("problems");
+  const problemsForm = document.getElementById("problems-form");
+  problemsForm.addEventListener("submit", onSubmit(problems));
 
-  form.addEventListener("submit", onSubmit(problems));
+  const problemsList = document.getElementById("problems");
 
   for (const node of render(renderProblems, problems)) {
     node.addEventListener("keydown", (event) => {
       event.target.classList.remove("correct");
       event.target.classList.remove("incorrect");
     });
-    form.appendChild(node);
+    problemsList.appendChild(node);
   }
 
-  const correctButton = render(
-    () => `<button id="correct-button" type="submit">Rätta</button>`,
-  );
+  const correctButton = document.getElementById("correct-button");
   correctButton.addEventListener("click", onSubmit(problems));
-
-  form.appendChild(correctButton);
 })();
