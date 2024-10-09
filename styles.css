@@ -1,3 +1,7 @@
+:root {
+  --column-items: 15;
+}
+
 html {
   font-family: "Courier New", Courier, monospace;
   font-size: 16px;
@@ -8,14 +12,54 @@ body {
   padding: 64px;
 }
 
-#problems {
+#problems-form {
   border: 3px solid black;
   width: fit-content;
   box-shadow: 12px 12px black;
   padding: 8px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+}
+
+#problems {
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: dense;
+  column-gap: 5ch;
+
+  @media only screen and (min-width: 700px) {
+    .problem {
+      grid-column: 1;
+    }
+    .problem:nth-child(n + 31) {
+      grid-column: 2;
+    }
+  }
+  @media only screen and (min-width: 980px) {
+    .problem {
+      grid-column: 1;
+    }
+    .problem:nth-child(n + 21) {
+      grid-column: 2;
+    }
+    .problem:nth-child(n + 41) {
+      grid-column: 3;
+    }
+  }
+  @media only screen and (min-width: 1300px) {
+    .problem {
+      grid-column: 1;
+    }
+    .problem:nth-child(n + 16) {
+      grid-column: 2;
+    }
+    .problem:nth-child(n + 31) {
+      grid-column: 3;
+    }
+    .problem:nth-child(n + 46) {
+      grid-column: 4;
+    }
+  }
 }
 
 #correct-button {
