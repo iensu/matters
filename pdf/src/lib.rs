@@ -2,8 +2,8 @@ use matters_lib::Problem;
 use printpdf::{BuiltinFont, Mm, PdfDocument};
 
 const A4: (f32, f32) = (210.0, 297.0);
-const START_POSITION: f32 = 270.0;
-const BREAD_TEXT_SIZE: f32 = 10.0;
+const START_POSITION: f32 = 290.0;
+const BREAD_TEXT_SIZE: f32 = 11.0;
 const INDENT: f32 = 20.0;
 const LINE_HEIGHT: f32 = BREAD_TEXT_SIZE;
 const MAX_ROWS: usize = 60;
