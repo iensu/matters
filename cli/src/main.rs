@@ -26,6 +26,10 @@ struct Args {
     #[arg(long, default_value_t = false)]
     allow_negative: bool,
 
+    /// Add equations where x or y is unknown.
+    #[arg(long, default_value_t = false)]
+    holes: bool,
+
     /// Name of the generated PDF file.
     #[arg(short, short, default_value = "test.pdf")]
     name: String,
@@ -48,9 +52,11 @@ fn main() {
 
     let filename = args.name.clone();
     let mut rng = rand::thread_rng();
+    let with_holes = args.holes;
     let problems = generate_problems(&args.into(), &mut rng).unwrap();
 
-    let bytes = matters_pdf::generate_pdf(&problems).expect("can create PDF document");
+    let bytes = matters_pdf::generate_pdf(&problems, with_holes, &mut rng)
+        .expect("can create PDF document");
 
     let mut file = File::create(&filename).expect("can create file");
     file.write_all(&bytes).expect("can write data to file");

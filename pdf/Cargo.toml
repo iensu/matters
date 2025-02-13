@@ -7,3 +7,4 @@ edition = "2021"
 matters_lib = { path = "../lib" }
 
 printpdf = "0.7.0"
+rand = { workspace = true, default-features = false }

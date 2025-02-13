@@ -113,6 +113,19 @@ impl Problem {
     pub const fn new(operation: Operation, x: u32, y: u32) -> Self {
         Self { operation, x, y }
     }
+
+    #[must_use]
+    pub const fn result(&self) -> i64 {
+        let x = self.x as i64;
+        let y = self.y as i64;
+
+        match self.operation {
+            Operation::Addition => x + y,
+            Operation::Subtraction => x - y,
+            Operation::Multiplication => x * y,
+            Operation::Division => x / y,
+        }
+    }
 }
 
 impl Display for Problem {
