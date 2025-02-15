@@ -55,7 +55,7 @@ pub fn generate_pdf(
                     "{:>2} = _______ {} {:>2}",
                     problem.result(),
                     problem.operation,
-                    problem.x
+                    problem.y
                 )
             } else {
                 format!(
